@@ -1,7 +1,6 @@
 export default function Card({ charity }: CharityInfo) {
   return (
     <div>
-      {/* <div className=" w-3/4 rounded shadow-xl border"> */}
       <div className=" w-full lg:max-w-full lg:flex border-black">
         <img
           className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded text-center overflow-hidden"
@@ -33,12 +32,13 @@ export default function Card({ charity }: CharityInfo) {
             ></img>
             <div className="text-sm">
               <p className="text-gray-900 leading-none">{charity.location}</p>
-              <p className="">{charity.websiteUrl}</p>
+              <div className="pt-1 text-xs text-blue-500">
+                <a href={charity.websiteUrl}>Visit Website</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    // </div>
   );
 }

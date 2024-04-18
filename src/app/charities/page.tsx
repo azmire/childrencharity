@@ -3,7 +3,7 @@ import Card from "../components/Card";
 export default async function Charities() {
   const apiKey = process.env.API_KEY;
   const response = await fetch(
-    `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}`
+    `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}&take=50`
   );
   const result = await response.json();
   //console.log("result :>> ", result);

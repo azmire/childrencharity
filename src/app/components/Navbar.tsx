@@ -2,15 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-function NavLink({ to, children }) {
-  return (
-    <a href={to} className={`mx-4`}>
-      {children}
-    </a>
-  );
-}
-
-function MobileNav({ open, setOpen }) {
+function MobileNav({ open, setOpen }: NavbarProps) {
   return (
     <div
       className={`absolute top-0 left-0 h-screen w-screen bg-white transform ${
@@ -21,21 +13,13 @@ function MobileNav({ open, setOpen }) {
         {" "}
         {/*logo container*/}
         <a className="text-xl font-semibold" href="/">
-          LOGO
+          <img
+            src="../android-chrome-512x512.png"
+            className="w-10 h-10 rounded-full mr-4"
+          ></img>
         </a>
       </div>
       <div className="flex flex-col ml-4">
-        {/* <a
-          className="text-xl font-medium my-4"
-          href="/about"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-          About
-        </a> */}
         <Link
           className="text-xl font-medium my-4"
           href={"/charities"}
@@ -47,17 +31,39 @@ function MobileNav({ open, setOpen }) {
         >
           Charities
         </Link>
-        <a
+        <Link
           className="text-xl font-normal my-4"
-          href="/contact"
+          href={"/account"}
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
             }, 100)
           }
         >
-          Contact
-        </a>
+          Account
+        </Link>
+        <Link
+          className="text-xl font-normal my-4"
+          href={"/signup"}
+          onClick={() =>
+            setTimeout(() => {
+              setOpen(!open);
+            }, 100)
+          }
+        >
+          SignUp
+        </Link>
+        <Link
+          className="text-xl font-normal my-4"
+          href={"/signin"}
+          onClick={() =>
+            setTimeout(() => {
+              setOpen(!open);
+            }, 100)
+          }
+        >
+          Signin
+        </Link>
       </div>
     </div>
   );
@@ -70,7 +76,10 @@ export default function Navbar() {
       <MobileNav open={open} setOpen={setOpen} />
       <div className="w-3/12 flex items-center">
         <a className="text-2xl font-semibold" href="/">
-          LOGO
+          <img
+            src="../android-chrome-512x512.png"
+            className="w-10 h-10 rounded-full mr-4"
+          ></img>
         </a>
       </div>
       <div className="w-9/12 flex justify-end items-center">
@@ -102,7 +111,15 @@ export default function Navbar() {
           <Link className="px-5" href={"/charities"}>
             Charities
           </Link>
-          <NavLink to="/about">ABOUT</NavLink>
+          <Link className="px-5" href={"/account"}>
+            Account
+          </Link>
+          <Link className="px-5" href={"/signup"}>
+            SignUp
+          </Link>
+          <Link className="px-5" href={"/signin"}>
+            Signin
+          </Link>
         </div>
       </div>
     </nav>

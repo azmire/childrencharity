@@ -9,3 +9,8 @@ declare type CharityData = {
   websiteUrl: string;
   logoUrl: string;
 };
+
+declare type NavbarProps = {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+};

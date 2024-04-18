@@ -19,23 +19,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <header className="bg-teal-500 py-5">
-          <Link className="px-5" href={"/"}>
-            Home
-          </Link>
-          <Link className="px-5" href={"/charities"}>
-            Charities
-          </Link>
-          <Link className="px-5" href={"/signup"}>
-            SignUp
-          </Link>
-          <Link className="px-5" href={"/signin"}>
-            Signin
-          </Link>
-          <Link className="px-5" href={"/account"}>
-            Account
-          </Link>
-        </header> */}
         <header>
           <Navbar></Navbar>
         </header>
