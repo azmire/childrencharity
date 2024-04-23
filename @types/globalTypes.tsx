@@ -8,9 +8,17 @@ declare type CharityData = {
   location: string;
   websiteUrl: string;
   logoUrl: string;
+  tags: string[];
+  ein: string;
 };
 
 declare type NavbarProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
+};
+
+//declare type Tags = {};
+
+declare type AllCharities = {
+  nonprofits: CharityData[];
 };

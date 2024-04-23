@@ -1,16 +1,17 @@
 export default async function Home() {
   const apiKey = process.env.API_KEY;
   const response = await fetch(
-    `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}`
+    `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}&take=50`
   );
   const result = await response.json();
-  console.log("result :>> ", result);
+  //console.log("result from homepage:>> ", result);
   return (
     <main>
       <ul>
         {result.nonprofits &&
-          result.nonprofits.map((charity) => {
-            return <li>{charity.name}</li>;
+          result.nonprofits.map((charity: CharityData) => {
+            console.log("charity.tags :>> ", charity.tags);
+            return <li>{charity.tags}</li>;
           })}
       </ul>
     </main>
