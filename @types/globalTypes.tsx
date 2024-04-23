@@ -8,6 +8,7 @@ declare type CharityData = {
   location: string;
   websiteUrl: string;
   logoUrl: string;
+  ein: "";
 };
 
 declare type NavbarProps = {
