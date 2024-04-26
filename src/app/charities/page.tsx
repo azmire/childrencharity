@@ -25,11 +25,11 @@ export default function Charities() {
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No profile data</p>;
 
-  let radioValue = "humans";
+  let radioValue = "";
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 pt-5">
-      <div className="h-8 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
+    <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
+      <div className="overflow-x-auto h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
         <FilterRadioButton />
       </div>
       <div>

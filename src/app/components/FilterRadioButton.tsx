@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FilterRadioButton() {
   return (
-    <div className="flex md:table-cell">
+    <div className="flex md:table-cell md:mx-auto md:ms-auto">
       <div>
         <input
           type="radio"
@@ -10,7 +10,9 @@ export default function FilterRadioButton() {
           name="tag_filter"
           value="health"
         ></input>
-        <label htmlFor="health">Health</label>
+        <label className="bg-red-300" htmlFor="health">
+          Health
+        </label>
       </div>
       <div>
         <input
@@ -19,7 +21,9 @@ export default function FilterRadioButton() {
           name="tag_filter"
           value="education"
         ></input>
-        <label htmlFor="education">Education</label>
+        <label className="bg-blue-300" htmlFor="education">
+          Education
+        </label>
       </div>
 
       <div>

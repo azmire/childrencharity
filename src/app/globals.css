@@ -25,3 +25,18 @@ body {
     text-wrap: balance;
   }
 }
+
+input[type="radio"] {
+  appearance: none;
+  z-index: 999;
+}
+label {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 5px black;
+  border-radius: 50%;
+  background-color: aqua;
+}
