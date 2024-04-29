@@ -1,65 +1,84 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Card from "../components/Card";
+import Search from "../components/Search";
 import FilterRadioButton from "../components/FilterRadioButton";
 
 export default function Charities() {
-  const [data, setData] = useState<AllCharities | null>();
+  const [charities, setCharities] = useState<CharityData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [inputText, setInputText] = useState("");
+  const [radioValue, setRadioValue] = useState("");
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-  console.log("data :>> ", data);
 
-  const [isLoading, setLoading] = useState(true);
+  const getCharities = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}&take=50`
+      );
+      if (response.ok) {
+        console.log("response", response);
+        const data = await response.json();
+        console.log("data", data);
+        setCharities(data.nonprofits);
+        setIsLoading(false);
+        return;
+      }
+      console.log("response not ok", response);
+    } catch (error) {
+      console.log("error :>>", error);
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
+
+  const searchedCharities = charities.filter((charity) => {
+    return charity.name.toLowerCase().includes(inputText.toLowerCase());
+  });
+
+  const handleRadioFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+
+  const filteredCharities = searchedCharities.filter((charity) => {
+    if (radioValue == "") {
+      return searchedCharities;
+    } else {
+      return charity.tags && charity.tags.includes(radioValue);
+    }
+  });
 
   useEffect(() => {
-    fetch(
-      `https://partners.every.org/v0.2/search/:children?apiKey=${apiKey}&take=50`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data test:>> ", data);
-        setData(data);
-        setLoading(false);
-      });
+    getCharities();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>No profile data</p>;
-
-  let radioValue = "";
-
   return (
-    <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
-      <div className="overflow-x-auto h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
-        <FilterRadioButton />
-      </div>
-      <div>
-        <p className="text-2xl text-slate-500 font-bold pb-5">
-          List of {data.nonprofits.length} children charities
-        </p>
-        {data.nonprofits.map((charity: CharityData) => {
-          if (radioValue == "") {
-            return (
-              <>
-                <div
-                  key={charity.ein}
-                  className="flex w-4/4 gap-y-5 rounded-xl shadow-xl border"
-                >
+    <>
+      <span>
+        <Search handleInputChange={handleInputChange} />
+      </span>
+      <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
+        <div className="overflow-x-auto h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
+          <FilterRadioButton handleRadioFilter={handleRadioFilter} />
+        </div>
+        <div key={filteredCharities.length}>
+          <p className="text-2xl text-slate-500 font-bold pb-5">
+            List of {filteredCharities.length} children charities
+          </p>
+
+          {charities &&
+            filteredCharities.map((charity: CharityData, i) => {
+              return (
+                <div key={i} className=" w-full rounded shadow-xl border">
                   <Card charity={charity} />
                 </div>
-              </>
-            );
-          } else {
-            return (
-              <div>
-                {charity.tags &&
-                  charity.tags.map((tag) => {
-                    return tag;
-                  })}
-              </div>
-            );
-          }
-        })}
+              );
+            })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,14 +1,32 @@
-import React from "react";
+"use client";
+import React, { ChangeEvent } from "react";
 
-export default function FilterRadioButton() {
+type FilterProps = {
+  handleRadioFilter: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
   return (
     <div className="flex md:table-cell md:mx-auto md:ms-auto">
+      <div>
+        <input
+          type="radio"
+          id="all"
+          name="tag_filter"
+          value=""
+          onChange={handleRadioFilter}
+        ></input>
+        <label className="bg-red-300" htmlFor="all">
+          All
+        </label>
+      </div>
       <div>
         <input
           type="radio"
           id="health"
           name="tag_filter"
           value="health"
+          onChange={handleRadioFilter}
         ></input>
         <label className="bg-red-300" htmlFor="health">
           Health
@@ -20,6 +38,7 @@ export default function FilterRadioButton() {
           id="education"
           name="tag_filter"
           value="education"
+          onChange={handleRadioFilter}
         ></input>
         <label className="bg-blue-300" htmlFor="education">
           Education
@@ -32,6 +51,7 @@ export default function FilterRadioButton() {
           id="cancer"
           name="tag_filter"
           value="cancer"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="cancer">Cancer</label>
       </div>
@@ -41,6 +61,7 @@ export default function FilterRadioButton() {
           id="educisrael-palestineation"
           name="tag_filter"
           value="israel-palestine"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="israel-palestine">Israel-Palestine</label>
       </div>
@@ -50,6 +71,7 @@ export default function FilterRadioButton() {
           id="ukraine"
           name="tag_filter"
           value="ukraine"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="ukraine">Ukraine</label>
       </div>
@@ -59,6 +81,7 @@ export default function FilterRadioButton() {
           id="poverty"
           name="tag_filter"
           value="poverty"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="poverty">Poverty</label>
       </div>
@@ -68,6 +91,7 @@ export default function FilterRadioButton() {
           id="food-security"
           name="tag_filter"
           value="food-security"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="food-security">Food-security</label>
       </div>
@@ -77,6 +101,7 @@ export default function FilterRadioButton() {
           id="adoption"
           name="tag_filter"
           value="adoption"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="adoption">Adoption</label>
       </div>
@@ -86,6 +111,7 @@ export default function FilterRadioButton() {
           id="autism"
           name="tag_filter"
           value="autism"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="autism">Autism</label>
       </div>
@@ -95,6 +121,7 @@ export default function FilterRadioButton() {
           id="disabilities"
           name="tag_filter"
           value="disabilities"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="disabilities">Disabilities</label>
       </div>
@@ -104,6 +131,7 @@ export default function FilterRadioButton() {
           id="refugees"
           name="tag_filter"
           value="refugees"
+          onChange={handleRadioFilter}
         ></input>
         <label htmlFor="refugees">Refugees</label>
       </div>

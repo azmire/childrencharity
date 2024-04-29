@@ -1,7 +1,7 @@
 export default function Card({ charity }: CharityInfo) {
   return (
     <div key={charity.ein}>
-      <div className=" w-full lg:max-w-full lg:flex border-black">
+      <div className="w-full lg:max-w-full lg:flex border-black">
         <img
           className="h-48 lg:h-auto w-full lg:w-48 flex-none bg-cover rounded text-center overflow-hidden"
           src={charity.coverImageUrl}
