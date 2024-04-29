@@ -58,7 +58,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
       <div>
         <input
           type="radio"
-          id="educisrael-palestineation"
+          id="israel-palestine"
           name="tag_filter"
           value="israel-palestine"
           onChange={handleRadioFilter}
