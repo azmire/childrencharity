@@ -22,3 +22,23 @@ declare type NavbarProps = {
 declare type AllCharities = {
   nonprofits: CharityData[];
 };
+
+declare type User = {
+  id: string;
+  username: string;
+  email: string;
+};
+
+declare type Favourite = {
+  id: string;
+  favourite: string;
+  author: User;
+};
+
+declare type SignUpValuesType = {
+  signUpValues: {
+    email: string;
+    password: string;
+    username: string;
+  };
+};

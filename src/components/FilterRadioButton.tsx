@@ -16,7 +16,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value=""
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-red-300" htmlFor="all">
+        <label className="bg-red-300 rounded-label" htmlFor="all">
           All
         </label>
       </div>
@@ -28,7 +28,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="health"
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-red-300" htmlFor="health">
+        <label className="bg-red-300 rounded-label" htmlFor="health">
           Health
         </label>
       </div>
@@ -40,7 +40,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="education"
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-blue-300" htmlFor="education">
+        <label className="bg-blue-300 rounded-label" htmlFor="education">
           Education
         </label>
       </div>
@@ -53,7 +53,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="cancer"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="cancer">Cancer</label>
+        <label className="rounded-label" htmlFor="cancer ">
+          Cancer
+        </label>
       </div>
       <div>
         <input
@@ -63,7 +65,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="israel-palestine"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="israel-palestine">Israel-Palestine</label>
+        <label className="rounded-label" htmlFor="israel-palestine">
+          Israel-Palestine
+        </label>
       </div>
       <div>
         <input
@@ -73,7 +77,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="ukraine"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="ukraine">Ukraine</label>
+        <label className="rounded-label" htmlFor="ukraine">
+          Ukraine
+        </label>
       </div>
       <div>
         <input
@@ -83,7 +89,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="poverty"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="poverty">Poverty</label>
+        <label className="rounded-label" htmlFor="poverty">
+          Poverty
+        </label>
       </div>
       <div>
         <input
@@ -93,7 +101,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="food-security"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="food-security">Food-security</label>
+        <label className="rounded-label" htmlFor="food-security">
+          Food-security
+        </label>
       </div>
       <div>
         <input
@@ -103,7 +113,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="adoption"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="adoption">Adoption</label>
+        <label className="rounded-label" htmlFor="adoption">
+          Adoption
+        </label>
       </div>
       <div>
         <input
@@ -113,7 +125,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="autism"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="autism">Autism</label>
+        <label className="rounded-label" htmlFor="autism ">
+          Autism
+        </label>
       </div>
       <div>
         <input
@@ -123,7 +137,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="disabilities"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="disabilities">Disabilities</label>
+        <label className="rounded-label" htmlFor="disabilities">
+          Disabilities
+        </label>
       </div>
       <div>
         <input
@@ -133,7 +149,9 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="refugees"
           onChange={handleRadioFilter}
         ></input>
-        <label htmlFor="refugees">Refugees</label>
+        <label className="rounded-label" htmlFor="refugees">
+          Refugees
+        </label>
       </div>
     </div>
   );

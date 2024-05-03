@@ -30,7 +30,7 @@ input[type="radio"] {
   appearance: none;
   z-index: 999;
 }
-label {
+.rounded-label {
   width: 5rem;
   height: 5rem;
   display: flex;
