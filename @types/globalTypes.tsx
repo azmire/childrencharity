@@ -36,9 +36,12 @@ declare type Favourite = {
 };
 
 declare type SignUpValuesType = {
-  signUpValues: {
-    email: string;
-    password: string;
-    username: string;
-  };
+  email: string;
+  password: string;
+  username: string;
+};
+
+declare type LoginValuesType = {
+  email: string;
+  password: string;
 };

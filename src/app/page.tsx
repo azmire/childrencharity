@@ -9,9 +9,9 @@ export default async function Home() {
     <main>
       <ul>
         {result.nonprofits &&
-          result.nonprofits.map((charity: CharityData) => {
-            console.log("charity.tags :>> ", charity.tags);
-            return <li>{charity.tags}</li>;
+          result.nonprofits.map((charity: CharityData, i: number) => {
+            //console.log("charity.tags :>> ", charity.tags);
+            return <li key={i}>{charity.tags}</li>;
           })}
       </ul>
     </main>

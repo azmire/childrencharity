@@ -11,7 +11,7 @@ type Favourite {
 }
 type Query {
     favourites:[Favourite]
-    user(id:ID!):User
+    getMe:User
 }
 type Mutation {signUp( email: String!, password:String!, username:String!): User!
     login( email: String!, password:String!): User!
