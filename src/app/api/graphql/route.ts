@@ -17,7 +17,7 @@ const server = new ApolloServer<MyContext>({
 const handler = startServerAndCreateNextHandler(server, {
   context: async () => {
     let activeUserEmail = null;
-    let token = cookies().get("token")?.value;
+    const token = cookies().get("token")?.value;
     const secret = process.env.JWT_SECRET;
     console.log("tokenCookie :>> ", token);
     if (token && secret) {
@@ -31,6 +31,7 @@ const handler = startServerAndCreateNextHandler(server, {
         cookies().delete("token");
       }
     }
+
     return { activeUserEmail };
   },
 });

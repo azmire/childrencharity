@@ -21,7 +21,6 @@ const Signin = () => {
     e.preventDefault();
     // here i would validate inputValues before submitting
     const result = await submit();
-    //console.log("this is the result", result);
     if (result.data) {
       setUser(result.data.login);
       router.push("/");

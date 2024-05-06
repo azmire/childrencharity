@@ -6,6 +6,7 @@ import { GraphQLError } from "graphql";
 import { argsToArgsConfig } from "graphql/type/definition";
 import { cookies } from "next/headers";
 import { MyContext } from "./route";
+import { hashPassword, verifyPassword } from "@/utils/bcrypt";
 
 const resolvers = {
   Mutation: {
@@ -18,7 +19,15 @@ const resolvers = {
         if (existingUser) {
           throw new GraphQLError("User with this email already exists");
         }
-        const user = await UserModel.create({ ...args });
+        const hashedPassword = await hashPassword(args.password); //from bcrypt.ts
+        const user = await UserModel.create({
+          email: args.email,
+          username: args.username,
+          password: hashedPassword,
+        });
+        const token = generateToken(user);
+        cookies().set("token", token);
+        console.log("token :>> ", token);
         return user;
       } catch (error) {
         const { message } = error as Error;
@@ -32,7 +41,12 @@ const resolvers = {
         if (!user) {
           throw new GraphQLError("You have to sign up first!");
         }
-        const passwordMatch = user.password === args.password; //bcrypt here
+        const { password: hashedPassword } = user;
+        const passwordMatch = await verifyPassword(
+          args.password,
+          hashedPassword
+        ); //bcrypt here
+
         if (!passwordMatch) {
           throw new GraphQLError("Incorrect password!");
         }

@@ -1,8 +1,7 @@
 "use client";
 
 import { logoutCookie } from "@/actions/logout";
-import { ApolloQueryResult, gql, useQuery } from "@apollo/client";
-import { signOut, useSession } from "next-auth/react";
+import { gql, useQuery } from "@apollo/client";
 import {
   PropsWithChildren,
   SetStateAction,
@@ -20,7 +19,6 @@ interface AuthContext {
   user: User | null;
   setUser: React.Dispatch<SetStateAction<User | null>>;
   logout: () => void;
-  //refetch: () => Promise<ApolloQueryResult<getMeRes>>;
 }
 
 const AuthContext = createContext({} as AuthContext);
@@ -30,9 +28,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     setUser(null);
-    //signOut();
     logoutCookie();
-    // clear cookies or nextauth signout
   };
 
   // NOTE how to make the active user state persist?
@@ -46,9 +42,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     }
   `;
 
-  // const session = useSession();
-  // console.log("this is the open session ", session);
-
   const { refetch, data } = useQuery<getMeRes>(getMeQuery);
   console.log("data", data);
 
@@ -57,12 +50,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       setUser(data.getMe);
     }
   }, [data]);
-
-  // useEffect(() => {
-  //   if (session.status === "authenticated") {
-  //     refetch();
-  //   }
-  // }, [session.status])
 
   // use either cookie/jwt token or nextauth session to get user email for gql context
 

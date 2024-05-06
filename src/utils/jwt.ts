@@ -6,7 +6,7 @@ export const generateToken = (user: User) => {
     sub: user.email,
   };
   const options = {
-    expiresIn: "5d",
+    expiresIn: "1d",
   };
   const token = jwt.sign(payload, secret, options);
   return token;
