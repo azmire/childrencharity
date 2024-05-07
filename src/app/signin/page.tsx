@@ -7,13 +7,12 @@ import { useState } from "react";
 import { LOGIN } from "../api/graphql/mutations";
 
 const Signin = () => {
-  let query = JSON.stringify(LOGIN);
   const router = useRouter();
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [submit, { loading, error }] = useMutation(JSON.parse(query), {
+  const [submit, { loading, error }] = useMutation(LOGIN, {
     variables: { email: email, password: password },
   });
 

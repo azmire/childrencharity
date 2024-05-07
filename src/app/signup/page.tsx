@@ -7,7 +7,6 @@ import { useState } from "react";
 import { SIGNUP } from "../api/graphql/mutations";
 
 const SignUp = () => {
-  let query = JSON.stringify(SIGNUP);
   const router = useRouter();
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
@@ -15,7 +14,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
 
-  const [submit, { loading, error }] = useMutation(JSON.parse(query), {
+  const [submit, { loading, error }] = useMutation(SIGNUP, {
     variables: { email: email, username: username, password: password },
   });
 
@@ -30,7 +29,7 @@ const SignUp = () => {
       console.log("this is the result", result);
       if (result.data) {
         console.log("result.data :>> ", result.data);
-        setUser(result.data.signup);
+        setUser(result.data.signUp);
         router.push("/");
       }
     }

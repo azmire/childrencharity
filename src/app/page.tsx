@@ -7,13 +7,17 @@ export default async function Home() {
   //console.log("result from homepage:>> ", result);
   return (
     <main>
-      <ul>
-        {result.nonprofits &&
-          result.nonprofits.map((charity: CharityData, i: number) => {
-            //console.log("charity.tags :>> ", charity.tags);
-            return <li key={i}>{charity.tags}</li>;
-          })}
-      </ul>
+      <div>
+        <h1 className="text-4xl p-5">Welcome to Children Charity page</h1>
+        <div className="p-5 pt-0">
+          <p>
+            Visit our Charities page and help children in need all over the
+            world by donating.
+            <br />
+            Everylittle help is welcome.
+          </p>
+        </div>
+      </div>
     </main>
   );
 }

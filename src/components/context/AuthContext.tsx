@@ -10,6 +10,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useRouter } from "next/navigation";
 
 type getMeRes = {
   getMe: User;
@@ -25,10 +26,12 @@ const AuthContext = createContext({} as AuthContext);
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   const logout = () => {
     setUser(null);
     logoutCookie();
+    router.push("/");
   };
 
   // NOTE how to make the active user state persist?

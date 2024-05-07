@@ -19,3 +19,16 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const ADDTOFAVOURITE = gql`
+  mutation ($favourites: String!) {
+    addFavourite(favourite: $ein) {
+      _id
+      favourite
+      createdAt
+      sent {
+        username
+      }
+    }
+  }
+`;

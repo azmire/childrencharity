@@ -1,3 +1,5 @@
+import Favourites from "./Favourites";
+
 export default function Card({ charity }: CharityInfo) {
   return (
     <div key={charity.ein}>
@@ -24,17 +26,22 @@ export default function Card({ charity }: CharityInfo) {
             </div>
             <p className="text-gray-700 text-base">{charity.description}</p>
           </div>
-          <div className="flex items-center">
-            <img
-              className="w-10 h-10 rounded-full mr-4"
-              src={charity.logoUrl}
-              alt="Avatar of Jonathan Reinink"
-            ></img>
-            <div className="text-sm">
-              <p className="text-gray-900 leading-none">{charity.location}</p>
-              <div className="pt-1 text-xs text-blue-500">
-                <a href={charity.websiteUrl}>Visit Website</a>
+          <div className="flex items-center justify-between">
+            <div className="flex justify-start">
+              <img
+                className="w-10 h-10 rounded-full mr-4"
+                src={charity.logoUrl}
+                alt="Avatar of Jonathan Reinink"
+              ></img>
+              <div className="text-sm">
+                <p className="text-gray-900 leading-none">{charity.location}</p>
+                <div className="pt-1 text-xs text-blue-500">
+                  <a href={charity.websiteUrl}>Visit Website</a>
+                </div>
               </div>
+            </div>
+            <div>
+              <Favourites ein={charity.ein} />
             </div>
           </div>
         </div>
