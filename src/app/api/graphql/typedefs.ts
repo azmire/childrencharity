@@ -6,11 +6,12 @@ type User {
 }
 type Favourite {
     _id:ID!
-    favourite: String
+    createdAt: String!
+    favourite: String!
     author: User!
 }
 type Query {
-    favourites:Favourite
+    favourites:[Favourite]
     getMe:User
 }
 type Mutation {signUp( email: String!, password:String!, username:String!): User!

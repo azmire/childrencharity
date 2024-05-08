@@ -10,6 +10,45 @@ import { hashPassword, verifyPassword } from "@/utils/bcrypt";
 
 const resolvers = {
   Mutation: {
+    addFavourite: async (
+      _: undefined,
+      args: { favourite: string },
+      contextValue: MyContext
+    ) => {
+      console.log("args", args);
+      if (!contextValue.activeUserEmail) {
+        throw new GraphQLError("You must be logged in to do this");
+      }
+      try {
+        await dbConnect();
+        const user = await UserModel.findOne({
+          email: contextValue.activeUserEmail,
+        });
+        if (!user) {
+          throw new GraphQLError("No user could be found?");
+        }
+        const favourite = await FavouriteModel.create({
+          author: user._id,
+          favourite: args.favourite,
+        });
+        return favourite;
+      } catch (error) {
+        const { message } = error as Error;
+        throw new GraphQLError(message);
+      }
+    },
+    // addFavourite: async (_: undefined, args: { favourite: string }) => {
+    //   try {
+    //     await dbConnect();
+    //     const favourite = await FavouriteModel.create({
+    //       favourite: args.favourite,
+    //     });
+    //     return favourite;
+    //   } catch (error) {
+    //     const { message } = error as Error;
+    //     throw new GraphQLError(message);
+    //   }
+    // },
     signUp: async (_: undefined, args: SignUpValuesType) => {
       try {
         await dbConnect(); //connect Mongoose
@@ -81,12 +120,14 @@ const resolvers = {
       }
     },
   },
-  // Favourite: {
-  //   author: async (parent: Favourite) => {
-  //     console.log(parent);
-  //   },
-  // },
+  Favourite: {
+    author: async (parent: Favourite) => {
+      //console.log(parent);
+      await dbConnect();
+      const user = await UserModel.findById(parent.author);
+
+      return user;
+    },
+  },
 };
 export default resolvers;
-
-// **********45:00*********

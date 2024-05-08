@@ -45,3 +45,9 @@ declare type LoginValuesType = {
   email: string;
   password: string;
 };
+
+declare type UserFavourites = {
+  author: User;
+  favourite: string;
+  _id: string;
+};

@@ -21,12 +21,11 @@ export const SIGNUP = gql`
 `;
 
 export const ADDTOFAVOURITE = gql`
-  mutation ($favourites: String!) {
-    addFavourite(favourite: $ein) {
+  mutation ($favourite: String!) {
+    addFavourite(favourite: $favourite) {
       _id
       favourite
-      createdAt
-      sent {
+      author {
         username
       }
     }

@@ -16,13 +16,14 @@ const server = new ApolloServer<MyContext>({
 
 const handler = startServerAndCreateNextHandler(server, {
   context: async () => {
-    let activeUserEmail = null;
+    let activeUserEmail = "andelo@email.com";
     const token = cookies().get("token")?.value;
     const secret = process.env.JWT_SECRET;
     console.log("tokenCookie :>> ", token);
     if (token && secret) {
       try {
         const { sub } = jwt.verify(token, secret) as JwtPayload;
+        console.log("sub :>> ", sub);
         if (sub) {
           activeUserEmail = sub;
         }
