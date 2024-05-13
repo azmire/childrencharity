@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Search from "../../components/Search";
 import FilterRadioButton from "../../components/FilterRadioButton";
+import Link from "next/link";
 
 export default function Charities() {
   const [charities, setCharities] = useState<CharityData[]>([]);
@@ -56,7 +57,7 @@ export default function Charities() {
   }, []);
 
   return (
-    <>
+    <div>
       <span>
         <Search handleInputChange={handleInputChange} />
       </span>
@@ -72,13 +73,13 @@ export default function Charities() {
           {charities &&
             filteredCharities.map((charity: CharityData, i) => {
               return (
-                <div key={i} className=" w-full rounded shadow-xl border">
+                <Link key={charity.ein} href={`/charities/${charity.ein}`}>
                   <Card charity={charity} />
-                </div>
+                </Link>
               );
             })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
