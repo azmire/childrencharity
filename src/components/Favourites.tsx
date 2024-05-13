@@ -21,7 +21,6 @@ const Favourites = ({ ein }: FavouriteProps) => {
     if (!user) {
       alert("Login please");
     } else {
-      console.log("trying to add favourite");
       const result = await submit();
       console.log("this is the result", result);
       if (result.data) {

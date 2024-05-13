@@ -16,7 +16,7 @@ const server = new ApolloServer<MyContext>({
 
 const handler = startServerAndCreateNextHandler(server, {
   context: async () => {
-    let activeUserEmail = "andelo@email.com";
+    let activeUserEmail = null;
     const token = cookies().get("token")?.value;
     const secret = process.env.JWT_SECRET;
     console.log("tokenCookie :>> ", token);

@@ -51,3 +51,18 @@ declare type UserFavourites = {
   favourite: string;
   _id: string;
 };
+
+declare type FavouriteCharity = {
+  data: {
+    nonprofit: {
+      name: string;
+      coverImageUrl: string;
+      description: string;
+      location: string;
+      websiteUrl: string;
+      logoUrl: string;
+      tags: string[];
+      ein: string;
+    };
+  };
+};

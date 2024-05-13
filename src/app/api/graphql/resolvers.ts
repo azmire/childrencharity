@@ -24,8 +24,18 @@ const resolvers = {
         const user = await UserModel.findOne({
           email: contextValue.activeUserEmail,
         });
+        await dbConnect();
+        const alreadyAddedToFavourites = await FavouriteModel.findOne({
+          favourite: args.favourite,
+        });
         if (!user) {
           throw new GraphQLError("No user could be found?");
+        }
+        if (alreadyAddedToFavourites) {
+          const removeFavourite = await FavouriteModel.findOneAndDelete({
+            favourite: args.favourite,
+          });
+          return removeFavourite;
         }
         const favourite = await FavouriteModel.create({
           author: user._id,
