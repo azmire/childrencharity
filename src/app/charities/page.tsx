@@ -73,9 +73,9 @@ export default function Charities() {
           {charities &&
             filteredCharities.map((charity: CharityData, i) => {
               return (
-                <Link key={charity.ein} href={`/charities/${charity.ein}`}>
-                  <Card charity={charity} />
-                </Link>
+                //<Link key={charity.ein} href={`/charities/${charity.ein}`}>
+                <Card charity={charity} />
+                // </Link>
               );
             })}
         </div>
