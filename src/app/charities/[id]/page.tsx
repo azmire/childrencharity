@@ -1,5 +1,6 @@
 import Favourites from "@/components/Favourites";
 import ShareButton from "@/components/ShareButton";
+import ShareURL from "@/components/ShareURL";
 
 declare type GetCharityProps = {
   params: { id: string };
@@ -67,7 +68,8 @@ export default async function GetCharity({ params }: GetCharityProps) {
           >
             Donate
           </a>
-          <ShareButton />
+          <ShareButton id={id} />
+          <ShareURL id={id} />
         </div>
       </div>
     </>
