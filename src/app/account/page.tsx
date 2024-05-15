@@ -1,6 +1,5 @@
 "use client";
 import UserFavouriteList from "@/components/UserFavouriteList";
-import { useAuth } from "../../components/context/AuthContext";
 import React from "react";
 
 export default function Account() {

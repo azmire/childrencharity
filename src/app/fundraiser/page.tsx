@@ -1,6 +1,5 @@
 "use client";
 import { useAuth } from "@/components/context/AuthContext";
-import Link from "next/link";
 import { useState } from "react";
 
 const Fundraiser = () => {
@@ -9,7 +8,7 @@ const Fundraiser = () => {
   const [description, setDescription] = useState("");
   const [goal, setGoal] = useState("");
   const every_sk = process.env.NEXT_PUBLIC_EVERY_ORG_SK;
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  //const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,10 +20,10 @@ const Fundraiser = () => {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", every_sk);
-      myHeaders.append("Access-Control-Allow-Headers", "Content-Type");
-      myHeaders.append("Access-Control-Allow-Origin", "*");
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Access-Control-Allow-Methods", "*");
+      myHeaders.append(
+        "Cookie",
+        "_cfuvid=w1CbgbY3fk2qiyj1q75bwQiLwusWe9UJeq24hgu6Qyw-1715762423907-0.0.1.1-604800000"
+      );
 
       const raw = JSON.stringify({
         nonprofitId: "c1c38cb5-16d6-4aca-a949-83c8e7cc1b88",
@@ -44,7 +43,7 @@ const Fundraiser = () => {
         redirect: "follow",
       };
 
-      fetch("https://partners.every.org/v0.2/fundraiser", requestOptions)
+      fetch("https://partners.every.org/v0.2/fundraiser", requestOptions as any)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));

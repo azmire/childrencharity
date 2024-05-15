@@ -3,7 +3,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Search from "../../components/Search";
 import FilterRadioButton from "../../components/FilterRadioButton";
-import Link from "next/link";
 
 export default function Charities() {
   const [charities, setCharities] = useState<CharityData[]>([]);
