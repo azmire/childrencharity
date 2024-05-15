@@ -16,18 +16,27 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+body {
+  font-family: sans-serif;
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+input[type="radio"] {
+  appearance: none;
+  z-index: 999;
+}
+.rounded-label {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 5px black;
+  border-radius: 50%;
+  background-color: aqua;
 }

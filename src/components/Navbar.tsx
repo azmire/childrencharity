@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "./context/AuthContext";
 
 function MobileNav({ open, setOpen }: NavbarProps) {
+  const { user, logout } = useAuth();
   return (
     <div
       className={`absolute top-0 left-0 h-screen w-screen bg-white transform ${
@@ -31,17 +33,19 @@ function MobileNav({ open, setOpen }: NavbarProps) {
         >
           Charities
         </Link>
-        <Link
-          className="text-xl font-normal my-4"
-          href={"/account"}
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-          Account
-        </Link>
+        {user ? (
+          <Link
+            className="text-xl font-normal my-4"
+            href={"/account"}
+            onClick={() =>
+              setTimeout(() => {
+                setOpen(!open);
+              }, 100)
+            }
+          >
+            Account
+          </Link>
+        ) : null}
         <Link
           className="text-xl font-normal my-4"
           href={"/signup"}
@@ -53,17 +57,26 @@ function MobileNav({ open, setOpen }: NavbarProps) {
         >
           SignUp
         </Link>
-        <Link
-          className="text-xl font-normal my-4"
-          href={"/signin"}
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-          Signin
-        </Link>
+        {user ? (
+          <button
+            className="flex justify-left text-xl font-normal my-4"
+            onClick={logout}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            className="text-xl font-normal my-4"
+            href={"/signin"}
+            onClick={() =>
+              setTimeout(() => {
+                setOpen(!open);
+              }, 100)
+            }
+          >
+            Signin
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -71,6 +84,7 @@ function MobileNav({ open, setOpen }: NavbarProps) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useAuth();
   return (
     <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-20 items-center">
       <MobileNav open={open} setOpen={setOpen} />
@@ -111,15 +125,21 @@ export default function Navbar() {
           <Link className="px-5" href={"/charities"}>
             Charities
           </Link>
-          <Link className="px-5" href={"/account"}>
-            Account
-          </Link>
+          {user ? (
+            <Link className="px-5" href={"/account"}>
+              Account
+            </Link>
+          ) : null}
           <Link className="px-5" href={"/signup"}>
             SignUp
           </Link>
-          <Link className="px-5" href={"/signin"}>
-            Signin
-          </Link>
+          {user ? (
+            <button onClick={logout}>Logout</button>
+          ) : (
+            <Link className="px-5" href={"/signin"}>
+              Signin
+            </Link>
+          )}
         </div>
       </div>
     </nav>
