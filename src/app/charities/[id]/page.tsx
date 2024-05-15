@@ -1,6 +1,7 @@
 import Favourites from "@/components/Favourites";
 import ShareButton from "@/components/ShareButton";
 import ShareURL from "@/components/ShareURL";
+import Link from "next/link";
 
 declare type GetCharityProps = {
   params: { id: string };
@@ -19,8 +20,8 @@ export default async function GetCharity({ params }: GetCharityProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
-        <div className="overflow-x-auto h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
+      <div className="grid grid-cols-8 grid-rows-1 md:justify-center gap-5 gap-y-5 lg:px-5 md:mt-2">
+        <div className="col-start-2 col-end-6 overflow-x-auto md:h-auto  md:rounded-xl md:shadow-xl md:border">
           <div key={result.data.nonprofit.ein}>
             <div className="w-max lg:max-w-full lg:flex border-black">
               <img
@@ -60,16 +61,56 @@ export default async function GetCharity({ params }: GetCharityProps) {
             </div>
           </div>
         </div>
-        <div className=" md:flex md:w-1/4 md:rounded-xl md:shadow-xl md:border">
-          <a
-            className="bg-green-400 h-6 border rounded-full p-5 flex justify-center items-center"
-            data-every-style
-            href={`https://www.every.org/${result.data.nonprofit.ein}/donate`}
-          >
-            Donate
-          </a>
-          <ShareButton id={id} />
-          <ShareURL id={id} />
+        {/* second column */}
+        <div className="col-start-6 col-end-8 ">
+          <div className="grid gap-3">
+            {/* first card in second col */}
+            <div className="grid grid-cols-6 grid-rows-3 items-center justify-items-center gap-3 lg:h-fit md:rounded-xl md:shadow-xl md:border p-2">
+              <div className="mb-1 text-base font-medium dark:text-white">
+                Raised money
+              </div>
+              <div className="col-start-1 col-end-7 w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                <div
+                  className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
+                  style={{ width: "45%" }}
+                ></div>
+              </div>
+              <div className="w-full col-start-1 col-end-7">
+                <div className="flex justify-center py-5 bg-green-400 hover:bg-green-600 text-white font-bold rounded-full">
+                  <Link
+                    href={`https://www.every.org/${result.data.nonprofit.ein}/donate`}
+                  >
+                    Donate
+                  </Link>
+                </div>
+              </div>
+              <div className="col-start-1 col-end-7">
+                <ShareButton id={id} />
+              </div>
+
+              <div className="w-full col-start-1 col-end-7">
+                <ShareURL id={id} />
+              </div>
+            </div>
+            {/* second card in second col */}
+            <div className="grid grid-cols-6 grid-rows-3 items-center justify-items-center gap-3 lg:h-fit md:rounded-xl md:shadow-xl md:border p-2">
+              <div className="w-full col-start-1 col-end-7 ">
+                <h4 className="text-2xl">Create a foundraiser</h4>
+                <p>
+                  Delivering unconditional cash directly to the world's poorest
+                  households via secure mobile transfers.
+                </p>
+              </div>
+              <div className="w-full col-start-1 col-end-7">
+                <Link
+                  className="flex justify-center w-full py-5 bg-green-400 hover:bg-green-600 text-white font-bold rounded-full"
+                  href={"/fundraiser"}
+                >
+                  Create Fundraiser
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -62,7 +62,7 @@ export default function Charities() {
         <Search handleInputChange={handleInputChange} />
       </span>
       <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
-        <div className="overflow-x-auto h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
+        <div className="overflow-x-auto lg:h-fit lg:pb-5 h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
           <FilterRadioButton handleRadioFilter={handleRadioFilter} />
         </div>
         <div key={filteredCharities.length}>
@@ -72,11 +72,7 @@ export default function Charities() {
 
           {charities &&
             filteredCharities.map((charity: CharityData, i) => {
-              return (
-                //<Link key={charity.ein} href={`/charities/${charity.ein}`}>
-                <Card charity={charity} />
-                // </Link>
-              );
+              return <Card charity={charity} />;
             })}
         </div>
       </div>

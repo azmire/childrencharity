@@ -10,27 +10,38 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "next-share";
-import { useParams } from "next/navigation";
 
-export default function ShareButton({ id }) {
+export default function ShareButton({ id }: { id: string }) {
   return (
     <div>
-      <h1>Social Share</h1>
-      <FacebookShareButton url={`https://www.every.org/${id}/donate`}>
-        <FacebookIcon size={32} round />
-      </FacebookShareButton>
-      <WhatsappShareButton url={`https://www.every.org/${id}/donate`}>
-        <WhatsappIcon size={32} round />
-      </WhatsappShareButton>
-      <LinkedinShareButton url={`https://www.every.org/${id}/donate`}>
-        <LinkedinIcon size={32} round />
-      </LinkedinShareButton>
-      <TwitterShareButton
-        url={`https://www.every.org/${id}/donate`}
-        title={"next-share is a social share buttons for your next React apps."}
-      >
-        <TwitterIcon size={32} round />
-      </TwitterShareButton>
+      <h1 className="flex justify-center">Share</h1>
+      <div className="flex justify-center">
+        <div className="px-2">
+          <FacebookShareButton url={`https://www.every.org/${id}/donate`}>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+        </div>
+        <div className="px-2">
+          <WhatsappShareButton url={`https://www.every.org/${id}/donate`}>
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+        </div>
+        <div className="px-2">
+          <LinkedinShareButton url={`https://www.every.org/${id}/donate`}>
+            <LinkedinIcon size={32} round />
+          </LinkedinShareButton>
+        </div>
+        <div className="px-2">
+          <TwitterShareButton
+            url={`https://www.every.org/${id}/donate`}
+            title={
+              "next-share is a social share buttons for your next React apps."
+            }
+          >
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+        </div>
+      </div>
     </div>
   );
 }
