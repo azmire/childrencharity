@@ -7,6 +7,7 @@ export default function Charities() {
   const [charities, setCharities] = useState<CharityData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [inputText, setInputText] = useState("");
+  const [radioValue, setRadioValue] = useState("");
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const getCharities = async () => {
@@ -28,38 +29,52 @@ export default function Charities() {
       console.log("error :>>", error);
     }
   };
-
+  //c
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log("e.target.value", typeof e.target.value);
     setInputText(e.target.value);
   };
 
-  const filteredCharities = charities.filter((charity) => {
+  const searchedCharities = charities.filter((charity) => {
     return charity.name.toLowerCase().includes(inputText.toLowerCase());
-    console.log("inputText", inputText.toLowerCase);
+  });
+
+  const handleRadioFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+
+  const filteredCharities = searchedCharities.filter((charity) => {
+    if (radioValue == "") {
+      return searchedCharities;
+    } else {
+      return charity.tags && charity.tags.includes(radioValue);
+    }
   });
 
   useEffect(() => {
     getCharities();
   }, []);
+
   return (
     <div className="wrapper grid grid-cols-1 justify-items-center gap-y-5 p-5">
       <div>
         <Search handleInputChange={handleInputChange} />
-      </div>
 
-      <div className="grid grid-cols-1 justify-items-end gap-y-5 p-5">
-        {charities &&
-          filteredCharities.map((charity: CharityData) => {
-            return (
-              <div
-                key={charity.ein}
-                className=" w-3/4 rounded shadow-xl border"
-              >
-                <Card charity={charity} />
-              </div>
-            );
-          })}
+      </span>
+      <div className="grid grid-cols-1 grid-rows-1 md:flex md:justify-center gap-5 gap-y-5 px-5 lg:px-5 md:mt-2">
+        <div className="overflow-x-auto lg:h-fit lg:pb-5 h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
+          <FilterRadioButton handleRadioFilter={handleRadioFilter} />
+        </div>
+        <div key={filteredCharities.length}>
+          <p className="text-2xl text-slate-500 font-bold pb-5">
+            List of {filteredCharities.length} children charities
+          </p>
+
+          {charities &&
+            filteredCharities.map((charity: CharityData, i) => {
+              return <Card charity={charity} />;
+            })}
+        </div>
       </div>
     </div>
   );
