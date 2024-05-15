@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
-import { AuthContextProvider } from "@/components/context/AuthContext";
-import { ApolloWrapper } from "@/components/context/AppoloWrapper";
+import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ApolloWrapper>
-          <AuthContextProvider>
-            <header>
-              <Navbar></Navbar>
-            </header>
-            {children}
-          </AuthContextProvider>
-        </ApolloWrapper>
+        <header>
+          <Navbar></Navbar>
+        </header>
+        {children}
       </body>
     </html>
   );
