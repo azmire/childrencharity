@@ -9,7 +9,6 @@ export default function Charities() {
   const [isLoading, setIsLoading] = useState(true);
   const [inputText, setInputText] = useState("");
   const [radioValue, setRadioValue] = useState("");
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const getCharities = async () => {
     setIsLoading(true);
@@ -55,6 +54,14 @@ export default function Charities() {
     getCharities();
   }, []);
 
+  const filteredCharities = charities.filter((charity) => {
+    return charity.name.toLowerCase().includes(inputText.toLowerCase());
+    console.log("inputText", inputText.toLowerCase);
+  });
+
+  useEffect(() => {
+    getCharities();
+  }, []);
   return (
     <div>
       <span>
@@ -74,6 +81,7 @@ export default function Charities() {
               return <Card charity={charity} />;
             })}
         </div>
+
       </div>
     </div>
   );
