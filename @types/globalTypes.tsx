@@ -10,6 +10,7 @@ declare type CharityData = {
   logoUrl: string;
   tags: string[];
   ein: string;
+
 };
 
 declare type NavbarProps = {
