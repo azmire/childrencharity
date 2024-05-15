@@ -30,7 +30,7 @@ export default function Charities() {
       console.log("error :>>", error);
     }
   };
-
+  //c
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
