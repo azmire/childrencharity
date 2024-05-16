@@ -1,4 +1,3 @@
-"use client";
 import { useAuth } from "@/components/context/AuthContext";
 import { useState } from "react";
 
@@ -7,8 +6,9 @@ const Fundraiser = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [goal, setGoal] = useState("");
-  const every_sk = process.env.NEXT_PUBLIC_EVERY_ORG_SK;
-  //const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const every_sk = process.env.EVERY_ORG_SK;
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const cookie = process.env.CHARITY_COOKIE_TOKEN;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,14 +16,11 @@ const Fundraiser = () => {
     console.log("validating pass");
     if (!user) {
       alert("Log in please!");
-    } else if (every_sk) {
+    } else if (every_sk && cookie) {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", every_sk);
-      myHeaders.append(
-        "Cookie",
-        "_cfuvid=w1CbgbY3fk2qiyj1q75bwQiLwusWe9UJeq24hgu6Qyw-1715762423907-0.0.1.1-604800000"
-      );
+      myHeaders.append("Cookie", cookie);
 
       const raw = JSON.stringify({
         nonprofitId: "c1c38cb5-16d6-4aca-a949-83c8e7cc1b88",

@@ -47,18 +47,6 @@ const resolvers = {
         throw new GraphQLError(message);
       }
     },
-    // addFavourite: async (_: undefined, args: { favourite: string }) => {
-    //   try {
-    //     await dbConnect();
-    //     const favourite = await FavouriteModel.create({
-    //       favourite: args.favourite,
-    //     });
-    //     return favourite;
-    //   } catch (error) {
-    //     const { message } = error as Error;
-    //     throw new GraphQLError(message);
-    //   }
-    // },
     signUp: async (_: undefined, args: SignUpValuesType) => {
       try {
         await dbConnect(); //connect Mongoose
@@ -109,6 +97,38 @@ const resolvers = {
       }
     },
   },
+  // handler: async (_: undefined, args: LoginValuesType) => {
+  //   const every_sk = process.env.EVERY_ORG_SK;
+  //   const cookie = process.env.CHARITY_COOKIE_TOKEN;
+
+  //   if (every_sk && cookie) {
+  //     const myHeaders = new Headers();
+  //     myHeaders.append("Content-Type", "application/json");
+  //     myHeaders.append("Authorization", every_sk);
+  //     myHeaders.append("Cookie", cookie);
+
+  //     const raw = JSON.stringify({
+  //       nonprofitId: "c1c38cb5-16d6-4aca-a949-83c8e7cc1b88",
+  //       title: "Test Your fundraiser title",
+  //       description: "A detailed description of your fundraiser",
+  //       startDate: "2024-05-14",
+  //       endDate: "2024-06-30",
+  //       goal: 10000,
+  //       raisedOffline: 1000,
+  //       currency: "USD",
+  //     });
+  //     const requestOptions = {
+  //       method: "POST",
+  //       headers: myHeaders,
+  //       body: raw,
+  //       redirect: "follow",
+  //     };
+  //     fetch("https://partners.every.org/v0.2/fundraiser", requestOptions as any)
+  //       .then((response) => response.text())
+  //       .then((result) => console.log(result))
+  //       .catch((error) => console.error(error));
+  //   }
+  // },
   Query: {
     favourites: async () => {
       await dbConnect(); //connect Mongoose
