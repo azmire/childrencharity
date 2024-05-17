@@ -31,3 +31,13 @@ export const ADDTOFAVOURITE = gql`
     }
   }
 `;
+
+export const FUNDRAISER = gql`
+  mutation ($title: String!, $description: String!, $goal: String!) {
+    fundRaiser(title: $title, description: $description, goal: $goal) {
+      title
+      description
+      goal
+    }
+  }
+`;

@@ -96,39 +96,54 @@ const resolvers = {
         throw new GraphQLError(message);
       }
     },
+    fundRaiser: async (_: undefined, args: FundRaiser) => {
+      const combinedKey = process.env.COMBINED_KEY_AUTH;
+      const cookie = process.env.CHARITY_COOKIE_TOKEN;
+      const nonprofitId = process.env.NONPROFIT_ID;
+      const { title, description, goal } = args;
+
+      if (combinedKey && cookie) {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", combinedKey);
+        myHeaders.append("Cookie", cookie);
+
+        const raw = JSON.stringify({
+          nonprofitId: nonprofitId,
+          title: title,
+          description: description,
+          startDate: "2024-05-14",
+          endDate: "2024-06-30",
+          goal: Number(goal),
+          raisedOffline: 1000,
+          currency: "USD",
+        });
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow" as RequestRedirect,
+        };
+        try {
+          const response = await fetch(
+            "https://partners.every.org/v0.2/fundraiser",
+            requestOptions
+          );
+          if (response.ok) {
+            const result = await response.json();
+            console.log("result from fundraiser api:>> ", result);
+            return result;
+          }
+          if (!response.ok) {
+            console.log("external api error", response);
+          }
+        } catch (error) {
+          console.log("error from every api", error);
+        }
+      }
+    },
   },
-  // handler: async (_: undefined, args: LoginValuesType) => {
-  //   const every_sk = process.env.EVERY_ORG_SK;
-  //   const cookie = process.env.CHARITY_COOKIE_TOKEN;
 
-  //   if (every_sk && cookie) {
-  //     const myHeaders = new Headers();
-  //     myHeaders.append("Content-Type", "application/json");
-  //     myHeaders.append("Authorization", every_sk);
-  //     myHeaders.append("Cookie", cookie);
-
-  //     const raw = JSON.stringify({
-  //       nonprofitId: "c1c38cb5-16d6-4aca-a949-83c8e7cc1b88",
-  //       title: "Test Your fundraiser title",
-  //       description: "A detailed description of your fundraiser",
-  //       startDate: "2024-05-14",
-  //       endDate: "2024-06-30",
-  //       goal: 10000,
-  //       raisedOffline: 1000,
-  //       currency: "USD",
-  //     });
-  //     const requestOptions = {
-  //       method: "POST",
-  //       headers: myHeaders,
-  //       body: raw,
-  //       redirect: "follow",
-  //     };
-  //     fetch("https://partners.every.org/v0.2/fundraiser", requestOptions as any)
-  //       .then((response) => response.text())
-  //       .then((result) => console.log(result))
-  //       .catch((error) => console.error(error));
-  //   }
-  // },
   Query: {
     favourites: async () => {
       await dbConnect(); //connect Mongoose

@@ -66,3 +66,9 @@ declare type FavouriteCharity = {
     };
   };
 };
+
+declare type FundRaiser = {
+  title: string;
+  description: string;
+  goal: number;
+};
