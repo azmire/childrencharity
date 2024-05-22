@@ -2,19 +2,26 @@
 import { ADDTOFAVOURITE } from "@/app/api/graphql/mutations";
 import { useAuth } from "@/components/context/AuthContext";
 import { useMutation } from "@apollo/client";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as EmptyHeart } from "@heroicons/react/24/outline";
+import { HeartIcon as FilledHeart } from "@heroicons/react/16/solid";
 
 declare type FavouriteProps = {
   ein: string;
 };
 
 const Favourites = ({ ein }: FavouriteProps) => {
-  const { user } = useAuth();
+  const { user, favouritesIds, setFavouritesIds } = useAuth();
   //console.log("ein :>> ", ein);
 
   const [submit, { loading, error }] = useMutation(ADDTOFAVOURITE, {
     variables: { favourite: ein },
   });
+
+  const buttonType = favouritesIds.includes(ein) ? (
+    <FilledHeart className="size-8 text-red-500" />
+  ) : (
+    <EmptyHeart className="size-8" />
+  );
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -22,27 +29,30 @@ const Favourites = ({ ein }: FavouriteProps) => {
       alert("Login please");
     } else {
       const result = await submit();
-      console.log("this is the result", result);
+      //console.log("this is the result", result);
       if (result.data) {
-        console.log("result.data :>> ", result.data);
+        setFavouritesIds((prev) => {
+          const isFavourite = prev.includes(ein);
+          if (isFavourite) {
+            return prev.filter((id) => {
+              return id !== ein;
+            });
+          } else {
+            return [...prev, ein];
+          }
+        });
+        console.log("results after hitting favv icon :>> ", result.data);
       }
     }
   };
 
   return (
-    <div>
+    <div className="ms-40">
       <form onSubmit={handleSubmit}>
         <input />
-        <button type="submit">
-          <HeartIcon className="size-8 stroke-red-500" />
-        </button>
+        <button type="submit">{buttonType}</button>
       </form>
     </div>
-    // <div>
-    //   <button onClick={addToFavourite}>
-    //     <HeartIcon className="size-8 stroke-red-500" />
-    //   </button>
-    // </div>
   );
 };
 export default Favourites;

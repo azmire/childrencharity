@@ -3,7 +3,6 @@ import FavouriteModel from "@/models/favourite";
 import UserModel from "@/models/user";
 import { generateToken } from "@/utils/jwt";
 import { GraphQLError } from "graphql";
-import { argsToArgsConfig } from "graphql/type/definition";
 import { cookies } from "next/headers";
 import { MyContext } from "./route";
 import { hashPassword, verifyPassword } from "@/utils/bcrypt";
@@ -145,10 +144,21 @@ const resolvers = {
   },
 
   Query: {
-    favourites: async () => {
-      await dbConnect(); //connect Mongoose
-      const favourites = await FavouriteModel.find({});
-      return favourites;
+    favourites: async (_: undefined, __: {}, contextValue: MyContext) => {
+      try {
+        // await dbConnect();
+        const user = await UserModel.findOne({
+          email: contextValue.activeUserEmail,
+        });
+        // await dbConnect(); //connect Mongoose
+        const favourites = await FavouriteModel.find({
+          author: user._id,
+        }).exec();
+        return favourites;
+      } catch (error) {
+        const { message } = error as Error;
+        throw new GraphQLError(message);
+      }
     },
     getMe: async (_: undefined, __: {}, contextValue: MyContext) => {
       const { activeUserEmail } = contextValue;

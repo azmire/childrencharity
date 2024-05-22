@@ -6,6 +6,7 @@ import Favourites from "./Favourites";
 const UserFavouriteList = () => {
   const [data, setData] = useState<FavouriteCharity[] | null>(null);
   const [isLoading, setLoading] = useState(true);
+  const [ids, setIds] = useState<string[]>([]);
   //console.log("favourites", favourites);
 
   //embedding ein saved as favourites to fetch charities from rest API
@@ -34,11 +35,12 @@ const UserFavouriteList = () => {
       setLoading(true);
       if (response.ok) {
         const result = await response.json();
-        console.log("result :>> ", result);
+        console.log("favourite ids :>> ", result);
         const ids = result.data.favourites.map((favourite: Favourite) => {
           return favourite.favourite;
         });
         setLoading(false);
+        setIds(ids);
         fetchSingleCharites(ids);
       }
       if (!response.ok) {
@@ -53,6 +55,7 @@ const UserFavouriteList = () => {
     fetchFavourites();
   }, []);
 
+  //FETCH SINGLE CHARITIES
   function fetchSingleCharites(ids: string[]) {
     console.log(ids);
     const fetches = ids.map((id) => {
@@ -131,7 +134,7 @@ const UserFavouriteList = () => {
                       </div>
                     </Link>
                     <div>
-                      <Favourites ein={charity.data.nonprofit.ein} />
+                      <Favourites ein={charity.data.nonprofit.ein} ids={ids} />
                     </div>
                   </div>
                 </div>
