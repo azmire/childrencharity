@@ -20,31 +20,31 @@ export default async function GetCharity({ params }: GetCharityProps) {
 
   return (
     <>
-      <div className="grid grid-cols-8 grid-rows-1 md:justify-center gap-5 gap-y-5 lg:px-5 md:mt-2">
-        <div className="col-start-2 col-end-6 overflow-x-auto md:h-auto  md:rounded-xl md:shadow-xl md:border">
+      <div className="lg:grid lg:grid-cols-8 lg:grid-rows-1 overflow-x-hidden md:justify-center gap-5 gap-y-5 lg:px-5 md:mt-2 ">
+        <div className="lg:col-start-2 lg:col-end-6  md:h-auto lg:overflow-x-auto md:rounded-xl md:shadow-xl md:border">
           <div key={result.data.nonprofit.ein}>
             <div className="w-max lg:max-w-full lg:flex border-black">
               <img
-                className="h-48 lg:h-auto w-full lg:w-fit flex-none bg-cover rounded text-center overflow-hidden"
+                className="h-48 lg:h-auto w-fit lg:w-fit flex-none bg-cover rounded text-center "
                 src={result.data.nonprofit.coverImageUrl}
                 title="Charity cover image"
               ></img>
             </div>
-            <div className="flex justify-start">
-              <img
-                className="w-10 h-10 rounded-full mr-4"
-                src={result.data.nonprofit.logoUrl}
-                alt="Avatar of Jonathan Reinink"
-              ></img>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center text-sm">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <img
+                  src={result.data.nonprofit.logoUrl}
+                  alt="Avatar of Jonathan Reinink"
+                  className="rounded-full"
+                ></img>
+                <div className="flex text-sm">
                   <p className="text-gray-900 leading-none">
                     {result.data.nonprofit.locationAddress}
                   </p>
                 </div>
-                <div>
-                  <Favourites ein={result.data.nonprofit.ein} />
-                </div>
+              </div>
+              <div className="flex justify-end">
+                <Favourites ein={result.data.nonprofit.ein} />
               </div>
             </div>
             <div className="w-full lg:max-w-full lg:flex border-black">
@@ -62,11 +62,11 @@ export default async function GetCharity({ params }: GetCharityProps) {
           </div>
         </div>
         {/* second column */}
-        <div className="col-start-6 col-end-8 ">
+        <div className="lg:col-start-6 lg:col-end-8 ">
           <div className="grid gap-3">
             {/* first card in second col */}
-            <div className="grid grid-cols-6 grid-rows-3 items-center justify-items-center gap-3 lg:h-fit md:rounded-xl md:shadow-xl md:border p-2">
-              <div className="mb-1 text-base font-medium dark:text-white">
+            <div className="lg:grid lg:grid-cols-6 lg:grid-rows-3 items-center justify-items-center gap-3 lg:h-fit md:rounded-xl md:shadow-xl md:border p-2">
+              {/* <div className="mb-1 text-base font-medium dark:text-white">
                 Raised money
               </div>
               <div className="col-start-1 col-end-7 w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
@@ -74,7 +74,7 @@ export default async function GetCharity({ params }: GetCharityProps) {
                   className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
                   style={{ width: "45%" }}
                 ></div>
-              </div>
+              </div> */}
               <div className="w-full col-start-1 col-end-7">
                 <div className="flex justify-center py-5 bg-green-400 hover:bg-green-600 text-white font-bold rounded-full">
                   <Link
@@ -93,8 +93,8 @@ export default async function GetCharity({ params }: GetCharityProps) {
               </div>
             </div>
             {/* second card in second col */}
-            <div className="grid grid-cols-6 grid-rows-3 items-center justify-items-center gap-3 lg:h-fit md:rounded-xl md:shadow-xl md:border p-2">
-              <div className="w-full col-start-1 col-end-7 ">
+            <div className="lg:grid lg:grid-cols-6 lg:grid-rows-2 lg:items-center justify-items-center gap-3 lg:h-min md:rounded-xl md:shadow-xl md:border p-2">
+              <div className="w-full col-start-1 col-end-7 lg:pt-5">
                 <h4 className="text-2xl">Create a foundraiser</h4>
                 <p>
                   Delivering unconditional cash directly to the world's poorest
