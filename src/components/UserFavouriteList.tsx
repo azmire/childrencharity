@@ -7,7 +7,7 @@ const UserFavouriteList = () => {
   const [data, setData] = useState<FavouriteCharity[] | null>(null);
   const [isLoading, setLoading] = useState(true);
   //const [ids, setIds] = useState<string[]>([]);
-  //console.log("favourites", favourites);
+  //console.log("favourites", data);
 
   //embedding ein saved as favourites to fetch charities from rest API
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -80,66 +80,56 @@ const UserFavouriteList = () => {
   }
 
   if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>No profile data</p>;
 
   return (
     <div className="m-3">
       <div className="text-3xl m-3">
         <p>My favourites list</p>
       </div>
-      <div className="lg:flex lg:flex-row lg:flex-wrap  ">
+      <div className="lg:flex lg:flex-wrap lg:justify-center ">
         {data &&
           data.map((charity) => {
             return (
-              <div key={charity.data.nonprofit.ein}>
-                <div className="flex lg:flex-wrap lg:w-1/3 lg:rounded-xl rounded-xl shadow-xl lg:shadow-xl border lg:border p-3 m-3">
+              <div
+                key={charity.data.nonprofit.ein}
+                className="inline-block lg:flex lg:flex-wrap lg:w-1/4 lg:rounded-xl rounded-xl shadow-xl lg:shadow-xl border lg:border lg:p-3 lg:m-3 my-2"
+              >
+                <Link
+                  key={charity.data.nonprofit.ein}
+                  href={`/charities/${charity.data.nonprofit.ein}`}
+                  className="lg:flex lg:flex-wrap h-48 lg:h-auto w-full lg:w-full lg:flex-wrap bg-cover rounded text-center overflow-hidden"
+                >
+                  <img
+                    className="flex h-48 lg:h-auto w-full lg:w-full  bg-cover rounded items-center overflow-hidden"
+                    src={charity.data.nonprofit.coverImageUrl}
+                    title="charity.data.nonprofit cover image"
+                  ></img>
+                </Link>
+                <div className=" bg-white rounded-b lg:rounded-b-none lg:rounded-r pt-2 flex flex-col justify-between leading-normal">
                   <Link
                     key={charity.data.nonprofit.ein}
                     href={`/charities/${charity.data.nonprofit.ein}`}
-                    className="flex flex-wrap h-48 lg:h-auto w-full lg:w-full flex lg:flex-wrap bg-cover rounded text-center overflow-hidden"
                   >
-                    <img
-                      className="flex h-48 lg:h-auto w-full lg:w-48  bg-cover rounded text-center overflow-hidden"
-                      src={charity.data.nonprofit.coverImageUrl}
-                      title="charity.data.nonprofit cover image"
-                    ></img>
-                  </Link>
-                  <div className=" bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                    <Link
-                      key={charity.data.nonprofit.ein}
-                      href={`/charities/${charity.data.nonprofit.ein}`}
-                    >
-                      <div className="flex flex-wrap mb-8">
-                        <div className="text-gray-900 font-bold text-xl mb-2">
-                          {charity.data.nonprofit.name}
-                        </div>
-                        <p className="flex lg:flex-wrap text-gray-700 text-base">
-                          {charity.data.nonprofit.description}
-                        </p>
+                    <div className="flex flex-wrap mb-8">
+                      <div className="text-gray-900 font-bold text-xl mb-2">
+                        {charity.data.nonprofit.name}
                       </div>
-                    </Link>
-                    <div className="flex items-center justify-between">
-                      <Link
-                        key={charity.data.nonprofit.ein}
-                        href={`/charities/${charity.data.nonprofit.ein}`}
-                      >
-                        <div className="flex justify-start">
-                          <img
-                            className="w-10 h-10 rounded-full mr-4"
-                            src={charity.data.nonprofit.logoUrl}
-                            alt="Avatar of Jonathan Reinink"
-                          ></img>
-                          <div className="flex items-center text-sm">
-                            <p className="text-gray-900 leading-none">
-                              {charity.data.nonprofit.location}
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
-                      <div>
-                        <Favourites ein={charity.data.nonprofit.ein} />
-                      </div>
+                      <p className="flex lg:flex-wrap text-gray-700 text-base">
+                        {charity.data.nonprofit.description}
+                      </p>
                     </div>
+                  </Link>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="lg:me-56">
+                    <img
+                      className=" w-12 h-12 rounded-full "
+                      src={charity.data.nonprofit.logoUrl}
+                      alt="logo"
+                    ></img>
+                  </div>
+                  <div>
+                    <Favourites ein={charity.data.nonprofit.ein} />
                   </div>
                 </div>
               </div>

@@ -124,9 +124,11 @@ export default function Navbar() {
               Account
             </Link>
           ) : null}
-          <Link className="px-5" href={"/signup"}>
-            Sign Up
-          </Link>
+          {user ? null : (
+            <Link className="px-5" href={"/signup"}>
+              Sign Up
+            </Link>
+          )}
           {user ? (
             <button onClick={logout}>Sign Out</button>
           ) : (

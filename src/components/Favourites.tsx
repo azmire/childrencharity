@@ -18,7 +18,7 @@ const Favourites = ({ ein }: FavouriteProps) => {
   });
 
   const buttonType = favouritesIds.includes(ein) ? (
-    <FilledHeart className="flex size-8 text-red-500" />
+    <FilledHeart className="size-8 text-red-500" />
   ) : (
     <EmptyHeart className="size-8" />
   );
@@ -49,8 +49,7 @@ const Favourites = ({ ein }: FavouriteProps) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input />
-        <div className="flex justify-end items-center pe-2">
+        <div>
           <button type="submit">{buttonType}</button>
         </div>
       </form>

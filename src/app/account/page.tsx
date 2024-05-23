@@ -86,7 +86,7 @@ export default function Account() {
       <h1 className="text-3xl m-3">
         List of my fundraisers: *to edit or delete funraisers please contact us*
       </h1>
-      <div>
+      <div className="lg:flex lg:flex-wrap lg:justify-center ">
         {data &&
           data.map((fund, i) => {
             return (
