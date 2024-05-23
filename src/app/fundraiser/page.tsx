@@ -1,54 +1,43 @@
 "use client";
 import { useAuth } from "@/components/context/AuthContext";
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { FUNDRAISER } from "../api/graphql/mutations";
 
 const Fundraiser = () => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [goal, setGoal] = useState("");
-  const every_sk = process.env.NEXT_PUBLIC_EVERY_ORG_SK;
-  //const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+  const [submit, { loading, error }] = useMutation(FUNDRAISER, {
+    update: (result) => {
+      console.log("mutationResult: ", result);
+    },
+    variables: {
+      title: title,
+      description: description,
+      goal: goal,
+    },
+  });
+
+  console.log("error :>> ", error);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("handling submit");
 
-    console.log("validating pass");
+    console.log("validating user");
     if (!user) {
-      alert("Log in please!");
-    } else if (every_sk) {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", every_sk);
-      myHeaders.append(
-        "Cookie",
-        "_cfuvid=w1CbgbY3fk2qiyj1q75bwQiLwusWe9UJeq24hgu6Qyw-1715762423907-0.0.1.1-604800000"
-      );
-
-      const raw = JSON.stringify({
-        nonprofitId: "c1c38cb5-16d6-4aca-a949-83c8e7cc1b88",
-        title: "Test Your fundraiser title",
-        description: "A detailed description of your fundraiser",
-        startDate: "2024-05-14",
-        endDate: "2024-06-30",
-        goal: 10000,
-        raisedOffline: 1000,
-        currency: "USD",
-      });
-
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-
-      fetch("https://partners.every.org/v0.2/fundraiser", requestOptions as any)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      alert("Log in please");
+    } else if (!title || !description || !goal) {
+      alert("All fields must be filled!");
     } else {
-      console.log("something went wrong");
+      const result = await submit();
+      console.log("this is the result", result);
+      if (result.data) {
+        console.log("result.data :>> ", result.data);
+      }
     }
   };
 
@@ -80,16 +69,6 @@ const Fundraiser = () => {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           ></input>
-          {/* <div className="flex flex-col items-center">
-            <label htmlFor="fname">Description</label>
-          </div>
-          <input
-            className="rounded-full border-green-300 border-solid border-2 p-1"
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></input> */}
 
           <label htmlFor="message" className="flex flex-col items-center">
             Your message

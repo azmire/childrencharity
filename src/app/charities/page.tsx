@@ -43,7 +43,7 @@ export default function Charities() {
     setRadioValue(e.target.value);
   };
 
-  const filteredCharities = searchedCharities.filter((charity) => {
+  const filteredCharities = searchedCharities.filter((charity, i) => {
     if (radioValue == "") {
       return searchedCharities;
     } else {
@@ -64,14 +64,18 @@ export default function Charities() {
         <div className="overflow-x-auto lg:h-fit lg:pb-5 h-30 md:h-auto md:flex md:w-2/4 md:rounded-xl md:shadow-xl md:border">
           <FilterRadioButton handleRadioFilter={handleRadioFilter} />
         </div>
-        <div key={filteredCharities.length}>
+        <div>
           <p className="text-2xl text-slate-500 font-bold pb-5">
             List of {filteredCharities.length} children charities
           </p>
 
           {charities &&
             filteredCharities.map((charity: CharityData, i) => {
-              return <Card charity={charity} />;
+              return (
+                <div key={i}>
+                  <Card charity={charity} />
+                </div>
+              );
             })}
         </div>
       </div>

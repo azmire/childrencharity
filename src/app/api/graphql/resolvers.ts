@@ -3,10 +3,10 @@ import FavouriteModel from "@/models/favourite";
 import UserModel from "@/models/user";
 import { generateToken } from "@/utils/jwt";
 import { GraphQLError } from "graphql";
-import { argsToArgsConfig } from "graphql/type/definition";
 import { cookies } from "next/headers";
 import { MyContext } from "./route";
 import { hashPassword, verifyPassword } from "@/utils/bcrypt";
+import FundraiserModel from "@/models/fundraiser";
 
 const resolvers = {
   Mutation: {
@@ -16,6 +16,7 @@ const resolvers = {
       contextValue: MyContext
     ) => {
       console.log("args", args);
+      console.log("contextValue :>> ", contextValue);
       if (!contextValue.activeUserEmail) {
         throw new GraphQLError("You must be logged in to do this");
       }
@@ -47,18 +48,6 @@ const resolvers = {
         throw new GraphQLError(message);
       }
     },
-    // addFavourite: async (_: undefined, args: { favourite: string }) => {
-    //   try {
-    //     await dbConnect();
-    //     const favourite = await FavouriteModel.create({
-    //       favourite: args.favourite,
-    //     });
-    //     return favourite;
-    //   } catch (error) {
-    //     const { message } = error as Error;
-    //     throw new GraphQLError(message);
-    //   }
-    // },
     signUp: async (_: undefined, args: SignUpValuesType) => {
       try {
         await dbConnect(); //connect Mongoose
@@ -108,12 +97,99 @@ const resolvers = {
         throw new GraphQLError(message);
       }
     },
+    fundRaiser: async (
+      _: undefined,
+      args: FundRaiserCreatingData,
+      contextValue: MyContext
+    ) => {
+      const combinedKey = process.env.COMBINED_KEY_AUTH;
+      const cookie = process.env.CHARITY_COOKIE_TOKEN;
+      const nonprofitId = process.env.NONPROFIT_ID;
+      const { title, description, goal } = args;
+
+      console.log("contextValue fund :>> ", contextValue);
+
+      if (!contextValue.activeUserEmail) {
+        throw new GraphQLError("You must be logged in to do this");
+      }
+      // CREATING FUNDRAISER
+      if (combinedKey && cookie) {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", combinedKey);
+        myHeaders.append("Cookie", cookie);
+
+        const raw = JSON.stringify({
+          nonprofitId: nonprofitId,
+          title: title,
+          description: description,
+          startDate: "2024-05-14",
+          endDate: "2024-06-30",
+          goal: Number(goal),
+          raisedOffline: 1000,
+          currency: "USD",
+        });
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow" as RequestRedirect,
+        };
+        try {
+          const response = await fetch(
+            "https://partners.every.org/v0.2/fundraiser",
+            requestOptions
+          );
+          if (response.ok) {
+            const result = await response.json();
+            console.log("result from fundraiser api:>> ", result);
+            // SAVING FUNDRAISER ID IN DATABASE
+            try {
+              await dbConnect();
+              const user = await UserModel.findOne({
+                email: contextValue.activeUserEmail,
+              });
+              if (!user) {
+                throw new GraphQLError("No user could be found?");
+              }
+              const favourite = await FundraiserModel.create({
+                author: user._id,
+                fundraiser: result.data.fundraiser.id,
+              });
+              return favourite;
+            } catch (error) {
+              const { message } = error as Error;
+              throw new GraphQLError(message);
+            }
+          }
+          if (!response.ok) {
+            console.log("external api error", response);
+          }
+        } catch (error) {
+          console.log("error from every api", error);
+        }
+      }
+    },
   },
+
   Query: {
-    favourites: async () => {
-      await dbConnect(); //connect Mongoose
-      const favourites = await FavouriteModel.find({});
-      return favourites;
+    favourites: async (_: undefined, __: {}, contextValue: MyContext) => {
+      try {
+        await dbConnect();
+        const user = await UserModel.findOne({
+          email: contextValue.activeUserEmail,
+        });
+
+        await dbConnect(); //connect Mongoose
+        const favourites = await FavouriteModel.find({
+          author: user._id,
+        }).exec();
+
+        return favourites;
+      } catch (error) {
+        const { message } = error as Error;
+        throw new GraphQLError(message);
+      }
     },
     getMe: async (_: undefined, __: {}, contextValue: MyContext) => {
       const { activeUserEmail } = contextValue;
@@ -129,9 +205,34 @@ const resolvers = {
         }
       }
     },
+    fundraisers: async (_: undefined, __: {}, contextValue: MyContext) => {
+      try {
+        // await dbConnect();
+        const user = await UserModel.findOne({
+          email: contextValue.activeUserEmail,
+        });
+        await dbConnect(); //connect Mongoose
+        const fundraisers = await FundraiserModel.find({
+          author: user._id,
+        }).exec();
+        return fundraisers;
+      } catch (error) {
+        const { message } = error as Error;
+        throw new GraphQLError(message);
+      }
+    },
   },
   Favourite: {
     author: async (parent: Favourite) => {
+      //console.log(parent);
+      await dbConnect();
+      const user = await UserModel.findById(parent.author);
+
+      return user;
+    },
+  },
+  FundRaiser: {
+    author: async (parent: Fundraiser) => {
       //console.log(parent);
       await dbConnect();
       const user = await UserModel.findById(parent.author);

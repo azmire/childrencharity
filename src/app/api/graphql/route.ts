@@ -19,7 +19,7 @@ const handler = startServerAndCreateNextHandler(server, {
     let activeUserEmail = null;
     const token = cookies().get("token")?.value;
     const secret = process.env.JWT_SECRET;
-    console.log("tokenCookie :>> ", token);
+    //console.log("tokenCookie :>> ", token);
     if (token && secret) {
       try {
         const { sub } = jwt.verify(token, secret) as JwtPayload;

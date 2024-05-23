@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Favourites from "./Favourites";
+import { useEffect, useState } from "react";
 
 export default function Card({ charity }: CharityInfo) {
   return (
@@ -26,20 +27,22 @@ export default function Card({ charity }: CharityInfo) {
             </div>
           </Link>
           <div className="flex items-center justify-between">
-            <Link key={charity.ein} href={`/charities/${charity.ein}`}>
-              <div className="flex justify-start">
-                <img
-                  className="w-10 h-10 rounded-full mr-4"
-                  src={charity.logoUrl}
-                  alt="Avatar of Jonathan Reinink"
-                ></img>
-                <div className="flex items-center text-sm">
-                  <p className="text-gray-900 leading-none">
-                    {charity.location}
-                  </p>
+            <div>
+              <Link key={charity.ein} href={`/charities/${charity.ein}`}>
+                <div className="flex ">
+                  <img
+                    className="w-10 h-10 rounded-full mr-4"
+                    src={charity.logoUrl}
+                    alt="Avatar of Jonathan Reinink"
+                  ></img>
+                  <div className="flex items-center text-sm">
+                    <p className="text-gray-900 leading-none">
+                      {charity.location}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
             <div>
               <Favourites ein={charity.ein} />
             </div>

@@ -16,8 +16,8 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value=""
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-red-300 rounded-label" htmlFor="all">
-          All
+        <label className="rounded-label" htmlFor="all">
+          <img src="./all.png" alt="all" />
         </label>
       </div>
       <div>
@@ -28,8 +28,8 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="health"
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-red-300 rounded-label" htmlFor="health">
-          Health
+        <label className="rounded-label" htmlFor="health">
+          <img src="./health.png" alt="health" />
         </label>
       </div>
       <div>
@@ -40,8 +40,8 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           value="education"
           onChange={handleRadioFilter}
         ></input>
-        <label className="bg-blue-300 rounded-label" htmlFor="education">
-          Education
+        <label className=" rounded-label" htmlFor="education">
+          <img src="./education.png" alt="education" />
         </label>
       </div>
 
@@ -54,7 +54,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="cancer ">
-          Cancer
+          <img src="./cancer.png" alt="cancer" />
         </label>
       </div>
       <div>
@@ -66,7 +66,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="israel-palestine">
-          Israel-Palestine
+          <img src="./israel-palestine.png" alt="israel-palestine" />
         </label>
       </div>
       <div>
@@ -78,7 +78,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="ukraine">
-          Ukraine
+          <img src="./ukraine.png" alt="ukraine" />
         </label>
       </div>
       <div>
@@ -90,7 +90,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="poverty">
-          Poverty
+          <img src="./poverty.png" alt="poverty" />
         </label>
       </div>
       <div>
@@ -102,7 +102,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="food-security">
-          Food-security
+          <img src="./food_security.png" alt="food_security" />
         </label>
       </div>
       <div>
@@ -114,7 +114,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="adoption">
-          Adoption
+          <img src="./adoption.png" alt="adoption" />
         </label>
       </div>
       <div>
@@ -126,7 +126,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="autism ">
-          Autism
+          <img src="./autism.png" alt="autism" />
         </label>
       </div>
       <div>
@@ -138,7 +138,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="disabilities">
-          Disabilities
+          <img src="./disabilities.png" alt="disabilities" />
         </label>
       </div>
       <div>
@@ -150,7 +150,7 @@ export default function FilterRadioButton({ handleRadioFilter }: FilterProps) {
           onChange={handleRadioFilter}
         ></input>
         <label className="rounded-label" htmlFor="refugees">
-          Refugees
+          <img src="./refugees.png" alt="refugees" />
         </label>
       </div>
     </div>

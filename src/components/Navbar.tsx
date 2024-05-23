@@ -15,10 +15,7 @@ function MobileNav({ open, setOpen }: NavbarProps) {
         {" "}
         {/*logo container*/}
         <a className="text-xl font-semibold" href="/">
-          <img
-            src="../android-chrome-512x512.png"
-            className="w-10 h-10 rounded-full mr-4"
-          ></img>
+          <img src="../logo.png" className="w-10 h-10 rounded-full mr-4"></img>
         </a>
       </div>
       <div className="flex flex-col ml-4">
@@ -90,10 +87,7 @@ export default function Navbar() {
       <MobileNav open={open} setOpen={setOpen} />
       <div className="w-3/12 flex items-center">
         <a className="text-2xl font-semibold" href="/">
-          <img
-            src="../android-chrome-512x512.png"
-            className="w-10 h-10 rounded-full mr-4"
-          ></img>
+          <img src="../logo.png" className="w-20 h-20 rounded-full mr-4"></img>
         </a>
       </div>
       <div className="w-9/12 flex justify-end items-center">
@@ -131,13 +125,13 @@ export default function Navbar() {
             </Link>
           ) : null}
           <Link className="px-5" href={"/signup"}>
-            SignUp
+            Sign Up
           </Link>
           {user ? (
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout}>Sign Out</button>
           ) : (
             <Link className="px-5" href={"/signin"}>
-              Signin
+              Sign In
             </Link>
           )}
         </div>
