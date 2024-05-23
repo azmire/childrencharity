@@ -69,16 +69,6 @@ const Fundraiser = () => {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           ></input>
-          {/* <div className="flex flex-col items-center">
-            <label htmlFor="fname">Description</label>
-          </div>
-          <input
-            className="rounded-full border-green-300 border-solid border-2 p-1"
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></input> */}
 
           <label htmlFor="message" className="flex flex-col items-center">
             Your message
