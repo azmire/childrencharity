@@ -12,3 +12,16 @@ export const FAVOURITES = gql`
     }
   }
 `;
+
+export const FUNDRAISERS = gql`
+  query {
+    fundraisers {
+      _id
+      createdAt
+      fundraiser
+      author {
+        username
+      }
+    }
+  }
+`;

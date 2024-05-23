@@ -33,11 +33,13 @@ export const ADDTOFAVOURITE = gql`
 `;
 
 export const FUNDRAISER = gql`
-  mutation ($title: String!, $description: String!, $goal: String!) {
-    fundRaiser(title: $title, description: $description, goal: $goal) {
-      title
-      description
-      goal
+  mutation ($description: String!, $goal: String!, $title: String) {
+    fundRaiser(description: $description, goal: $goal, title: $title) {
+      author {
+        _id
+        email
+        username
+      }
     }
   }
 `;

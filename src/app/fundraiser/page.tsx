@@ -21,6 +21,8 @@ const Fundraiser = () => {
     },
   });
 
+  console.log("error :>> ", error);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("handling submit");

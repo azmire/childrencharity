@@ -6,6 +6,7 @@ import { GraphQLError } from "graphql";
 import { cookies } from "next/headers";
 import { MyContext } from "./route";
 import { hashPassword, verifyPassword } from "@/utils/bcrypt";
+import FundraiserModel from "@/models/fundraiser";
 
 const resolvers = {
   Mutation: {
@@ -15,6 +16,7 @@ const resolvers = {
       contextValue: MyContext
     ) => {
       console.log("args", args);
+      console.log("contextValue :>> ", contextValue);
       if (!contextValue.activeUserEmail) {
         throw new GraphQLError("You must be logged in to do this");
       }
@@ -95,12 +97,22 @@ const resolvers = {
         throw new GraphQLError(message);
       }
     },
-    fundRaiser: async (_: undefined, args: FundRaiser) => {
+    fundRaiser: async (
+      _: undefined,
+      args: FundRaiserCreatingData,
+      contextValue: MyContext
+    ) => {
       const combinedKey = process.env.COMBINED_KEY_AUTH;
       const cookie = process.env.CHARITY_COOKIE_TOKEN;
       const nonprofitId = process.env.NONPROFIT_ID;
       const { title, description, goal } = args;
 
+      console.log("contextValue fund :>> ", contextValue);
+
+      if (!contextValue.activeUserEmail) {
+        throw new GraphQLError("You must be logged in to do this");
+      }
+      // CREATING FUNDRAISER
       if (combinedKey && cookie) {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -131,7 +143,24 @@ const resolvers = {
           if (response.ok) {
             const result = await response.json();
             console.log("result from fundraiser api:>> ", result);
-            return result;
+            // SAVING FUNDRAISER ID IN DATABASE
+            try {
+              await dbConnect();
+              const user = await UserModel.findOne({
+                email: contextValue.activeUserEmail,
+              });
+              if (!user) {
+                throw new GraphQLError("No user could be found?");
+              }
+              const favourite = await FundraiserModel.create({
+                author: user._id,
+                fundraiser: result.data.fundraiser.id,
+              });
+              return favourite;
+            } catch (error) {
+              const { message } = error as Error;
+              throw new GraphQLError(message);
+            }
           }
           if (!response.ok) {
             console.log("external api error", response);
@@ -146,14 +175,16 @@ const resolvers = {
   Query: {
     favourites: async (_: undefined, __: {}, contextValue: MyContext) => {
       try {
-        // await dbConnect();
+        await dbConnect();
         const user = await UserModel.findOne({
           email: contextValue.activeUserEmail,
         });
-        // await dbConnect(); //connect Mongoose
+
+        await dbConnect(); //connect Mongoose
         const favourites = await FavouriteModel.find({
           author: user._id,
         }).exec();
+
         return favourites;
       } catch (error) {
         const { message } = error as Error;
@@ -174,9 +205,34 @@ const resolvers = {
         }
       }
     },
+    fundraisers: async (_: undefined, __: {}, contextValue: MyContext) => {
+      try {
+        // await dbConnect();
+        const user = await UserModel.findOne({
+          email: contextValue.activeUserEmail,
+        });
+        await dbConnect(); //connect Mongoose
+        const fundraisers = await FundraiserModel.find({
+          author: user._id,
+        }).exec();
+        return fundraisers;
+      } catch (error) {
+        const { message } = error as Error;
+        throw new GraphQLError(message);
+      }
+    },
   },
   Favourite: {
     author: async (parent: Favourite) => {
+      //console.log(parent);
+      await dbConnect();
+      const user = await UserModel.findById(parent.author);
+
+      return user;
+    },
+  },
+  FundRaiser: {
+    author: async (parent: Fundraiser) => {
       //console.log(parent);
       await dbConnect();
       const user = await UserModel.findById(parent.author);

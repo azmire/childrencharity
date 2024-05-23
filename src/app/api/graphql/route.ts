@@ -23,7 +23,7 @@ const handler = startServerAndCreateNextHandler(server, {
     if (token && secret) {
       try {
         const { sub } = jwt.verify(token, secret) as JwtPayload;
-        //console.log("sub :>> ", sub);
+        console.log("sub :>> ", sub);
         if (sub) {
           activeUserEmail = sub;
         }

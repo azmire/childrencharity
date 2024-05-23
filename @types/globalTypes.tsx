@@ -67,8 +67,35 @@ declare type FavouriteCharity = {
   };
 };
 
-declare type FundRaiser = {
+declare type FundRaiserCreatingData = {
   title: string;
   description: string;
   goal: number;
+};
+
+declare type Fundraiser = {
+  id: string;
+  fundraiser: string;
+  author: User;
+};
+declare type FundraiserData = {
+  data: {
+    fundraiser: {
+      createdAt: string;
+      description: string;
+      endDate: string;
+      goalAmount: string;
+      goalCurrency: string;
+      startDate: string;
+      title: string;
+      id: string;
+    };
+    nonprofits: Nonprofit[];
+  };
+};
+
+declare type Nonprofit = {
+  coverImageCloudinaryId: string;
+  name: string;
+  id: string;
 };

@@ -29,7 +29,6 @@ const AuthContext = createContext({} as AuthContext);
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
-
   const [favouritesIds, setFavouritesIds] = useState<string[]>([]);
 
   const fetchFavourites = async () => {
@@ -63,7 +62,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       }
       if (!response.ok) {
         const result = await response.json();
-        console.log("result :>> ", result);
+        //console.log("result :>> ", result);
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -87,8 +86,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     }
   `;
 
-  const { refetch, data } = useQuery<getMeRes>(getMeQuery);
-  console.log("data", data);
+  const { data } = useQuery<getMeRes>(getMeQuery);
 
   useEffect(() => {
     if (data) {
@@ -96,8 +94,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       fetchFavourites();
     }
   }, [data]);
-
-  // use either cookie/jwt token or nextauth session to get user email for gql context
 
   return (
     <AuthContext.Provider
