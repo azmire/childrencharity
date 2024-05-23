@@ -97,8 +97,8 @@ export default async function GetCharity({ params }: GetCharityProps) {
               <div className="w-full col-start-1 col-end-7 lg:pt-5">
                 <h4 className="text-2xl">Create a foundraiser</h4>
                 <p>
-                  Delivering unconditional cash directly to the world's poorest
-                  households via secure mobile transfers.
+                  Delivering unconditional cash directly to the world&apos;s
+                  poorest households via secure mobile transfers.
                 </p>
               </div>
               <div className="w-full col-start-1 col-end-7">
