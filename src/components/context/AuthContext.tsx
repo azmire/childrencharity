@@ -22,6 +22,7 @@ interface AuthContext {
   logout: () => void;
   favouritesIds: string[];
   setFavouritesIds: React.Dispatch<SetStateAction<string[]>>;
+  fetchFavourites: () => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContext);
@@ -95,7 +96,14 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, logout, favouritesIds, setFavouritesIds }}
+      value={{
+        user,
+        setUser,
+        logout,
+        favouritesIds,
+        setFavouritesIds,
+        fetchFavourites,
+      }}
     >
       {children}
     </AuthContext.Provider>

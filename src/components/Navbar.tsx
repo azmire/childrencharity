@@ -74,7 +74,7 @@ function MobileNav({ open, setOpen }: NavbarProps) {
             Signin
           </Link>
         )}
-        <Link className="px-5" href={"/aboutus"}>
+        <Link className="text-xl font-normal my-4" href={"/aboutus"}>
           About us
         </Link>
       </div>
