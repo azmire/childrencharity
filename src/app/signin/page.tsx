@@ -8,7 +8,7 @@ import { LOGIN } from "../api/graphql/mutations";
 
 const Signin = () => {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { setUser, fetchFavourites } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,6 +22,7 @@ const Signin = () => {
     const result = await submit();
     if (result.data) {
       setUser(result.data.login);
+      await fetchFavourites();
       router.push("/");
     }
   };
