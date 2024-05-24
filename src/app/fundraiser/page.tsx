@@ -3,8 +3,10 @@ import { useAuth } from "@/components/context/AuthContext";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { FUNDRAISER } from "../api/graphql/mutations";
+import { useRouter } from "next/navigation";
 
 const Fundraiser = () => {
+  const router = useRouter();
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -21,8 +23,6 @@ const Fundraiser = () => {
     },
   });
 
-  console.log("error :>> ", error);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("handling submit");
@@ -37,6 +37,7 @@ const Fundraiser = () => {
       console.log("this is the result", result);
       if (result.data) {
         console.log("result.data :>> ", result.data);
+        router.push("/account");
       }
     }
   };
