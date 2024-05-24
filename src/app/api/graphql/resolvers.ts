@@ -28,7 +28,8 @@ const resolvers = {
         await dbConnect();
         const alreadyAddedToFavourites = await FavouriteModel.findOne({
           favourite: args.favourite,
-        });
+          author: user._id,
+        }).exec();
         if (!user) {
           throw new GraphQLError("No user could be found?");
         }
