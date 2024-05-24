@@ -95,10 +95,10 @@ export default async function GetCharity({ params }: GetCharityProps) {
             {/* second card in second col */}
             <div className="lg:grid lg:grid-cols-6 lg:grid-rows-2 lg:items-center justify-items-center gap-3 lg:h-min md:rounded-xl md:shadow-xl md:border p-2">
               <div className="w-full col-start-1 col-end-7 lg:pt-5">
-                <h4 className="text-2xl">Create a foundraiser</h4>
+                <h4 className="text-2xl">Create a Fund Raiser</h4>
                 <p>
-                  Delivering unconditional cash directly to the world&apos;s
-                  poorest households via secure mobile transfers.
+                  Delivering unconditional support directly to the world&apos;s
+                  children.
                 </p>
               </div>
               <div className="w-full col-start-1 col-end-7">

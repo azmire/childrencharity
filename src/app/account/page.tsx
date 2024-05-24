@@ -26,10 +26,7 @@ export default function Account() {
       redirect: "follow" as RequestRedirect,
     };
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/graphql",
-        requestOptions
-      );
+      const response = await fetch("/api/graphql", requestOptions);
       setIsLoading(true);
       if (response.ok) {
         const result = await response.json();

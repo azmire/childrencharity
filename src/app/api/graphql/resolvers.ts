@@ -36,6 +36,7 @@ const resolvers = {
         if (alreadyAddedToFavourites) {
           const removeFavourite = await FavouriteModel.findOneAndDelete({
             favourite: args.favourite,
+            author: user._id,
           });
           return removeFavourite;
         }

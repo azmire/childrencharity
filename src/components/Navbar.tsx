@@ -74,6 +74,9 @@ function MobileNav({ open, setOpen }: NavbarProps) {
             Signin
           </Link>
         )}
+        <Link className="px-5" href={"/aboutus"}>
+          About us
+        </Link>
       </div>
     </div>
   );
@@ -136,6 +139,9 @@ export default function Navbar() {
               Sign In
             </Link>
           )}
+          <Link className="px-5" href={"/aboutus"}>
+            About us
+          </Link>
         </div>
       </div>
     </nav>

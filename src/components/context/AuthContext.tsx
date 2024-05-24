@@ -47,10 +47,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       redirect: "follow" as RequestRedirect,
     };
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/graphql",
-        requestOptions
-      );
+      const response = await fetch("/api/graphql", requestOptions);
 
       if (response.ok) {
         const result = await response.json();
@@ -71,6 +68,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     setUser(null);
+    setFavouritesIds([]);
     logoutCookie();
     router.push("/");
   };
